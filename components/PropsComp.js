@@ -1,7 +1,19 @@
+/* 
+    Componente padre Props
+    con la propiedad components se trae al componente hijo
+    con la iteracion del arreglo movies, se pasa los valores al componente hijo
+*/
+
 Vue.component('props-comp', {
     template: `
         <div>
             <h1>Peliculas Props</h1>
+            <MovieComp v-for="(movie,index) in movies" :key="index" 
+                :id="movie.id"
+                :title="movie.title"
+                :synopsis="movie.synopsis"
+                :cover="movie.cover"
+            />
         </div>
     `,
     data() {
@@ -27,4 +39,7 @@ Vue.component('props-comp', {
             ]
         }
     },
+    components: {
+        MovieComp
+    }
 })
