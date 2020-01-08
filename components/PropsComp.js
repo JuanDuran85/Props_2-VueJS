@@ -4,6 +4,9 @@
     con la iteracion del arreglo movies, se pasa los valores al componente hijo
     el binding se realizada cuando es dato del componente propio
     para pasar texto o valores directos se hace sin el binding
+
+    para trabajar con sync desde el padre al hijo, se debe agregar:
+    :like.sync="movie.like"
 */
 
 Vue.component('props-comp', {
@@ -18,7 +21,8 @@ Vue.component('props-comp', {
                 :synopsis="movie.synopsis"
                 :cover="movie.cover"
                 message="Mensaje desde el componente padre"
-                :like.sync="movie.like"
+                :like="movie.like"
+                @toggleLike="onToggleLike"
             />
         </div>
     `,
@@ -55,8 +59,13 @@ Vue.component('props-comp', {
         onToggleLike(data){
             let movieLike = this.movies.find(movie => movie.id == data.id);
             movieLike.like = data.like
-            console.log(movieLike);
+            console.log(movieLike.like);
             //this.like = like;
+            if (movieLike.like) {
+                console.log('Dentro del if para el alert');
+                this.$swal(`${movieLike.title}`, "Pelicula Agregada a Favoritos", "success")
+                //alert(`${movieLike.title} agregada a favoritos`)
+            }
         }
     },
 })

@@ -2,6 +2,9 @@
     Creando el componente hijo para los props
     declarando el componente hijo de manera local
     con la propiedad props se reciben los datos del padre al hijo
+
+    para trabajar con sync desde el padre, se debe agregar:
+    @click="$emit('update:like', !like)" 
 */
 
 let MovieComp = {
@@ -11,7 +14,7 @@ let MovieComp = {
             <h2 v-text="title"></h2>
             <p v-text="synopsis"></p>
             <button 
-                @click="$emit('update:like', !like)" 
+                @click="toggleLike" 
                 v-text="like ? 'Favorito' : 'Agregar a Favoritos'">
             </button>
             <hr>
@@ -59,9 +62,10 @@ let MovieComp = {
             let data = {
                 id: this.id,
                 like: !this.like
-            }
+            };
             console.log(data);
-            this.$emit('toggleLike', data)
+            this.$emit('toggleLike', data);
+
         }
     },
 }
