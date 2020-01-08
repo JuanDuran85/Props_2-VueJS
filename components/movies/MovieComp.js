@@ -10,6 +10,7 @@ let MovieComp = {
             <img :src="cover"/>
             <h2 v-text="title"></h2>
             <p v-text="synopsis"></p>
+            <button v-text="like ? 'Favorito' : 'Agregar a Favoritos'"></button>
             <hr>
         </div>
     `,
@@ -36,6 +37,17 @@ let MovieComp = {
         cover: {
             type: String, 
             required: true
+        },
+        message: {
+            type: String,
+            required: false
+        },
+        like: {
+            type: Boolean,
+            required: true,
+            default(){
+                return false
+            }
         }
     }
 }
