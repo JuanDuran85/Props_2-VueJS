@@ -19,6 +19,7 @@ Vue.component('props-comp', {
                 :cover="movie.cover"
                 message="Mensaje desde el componente padre"
                 :like="movie.like"
+                @toggleLike="onToggleLike"
             />
         </div>
     `,
@@ -50,5 +51,15 @@ Vue.component('props-comp', {
     },
     components: {
         MovieComp
-    }
+    },
+    methods: {
+        onToggleLike(data){
+            console.log(data);
+            let movieLike = this.movies.find(movie => movie.id == data.id);
+            console.log(movieLike);
+            movieLike.like = data.like
+            console.log(movieLike.like);
+            //this.like = like;
+        }
+    },
 })

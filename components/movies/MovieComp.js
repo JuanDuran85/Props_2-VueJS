@@ -10,7 +10,7 @@ let MovieComp = {
             <img :src="cover"/>
             <h2 v-text="title"></h2>
             <p v-text="synopsis"></p>
-            <button v-text="like ? 'Favorito' : 'Agregar a Favoritos'"></button>
+            <button @click="toggleLike" v-text="like ? 'Favorito' : 'Agregar a Favoritos'"></button>
             <hr>
         </div>
     `,
@@ -49,5 +49,15 @@ let MovieComp = {
                 return false
             }
         }
-    }
+    },
+    methods: {
+        toggleLike () {
+            //this.like = !this.like
+            let data = {
+                id: this.id,
+                like: !this.like
+            }
+            this.$emit('toggleLike', data)
+        }
+    },
 }
