@@ -24,6 +24,7 @@ Vue.component('props-comp', {
                 :like="movie.like"
                 @toggleLike="onToggleLike"
             />
+            <MovieFav v-if="showLike"/>
         </div>
     `,
     data() {
@@ -49,23 +50,29 @@ Vue.component('props-comp', {
                     cover: 'https://image.tmdb.org/t/p/w185_and_h278_bestv2/uMZqKhT4YA6mqo2yczoznv7IDmv.jpg',
                     like: false
                 }
-            ]
+            ],
+            showLike: false
         }
     },
     components: {
-        MovieComp
+        MovieComp,
+        MovieFav
     },
     methods: {
         onToggleLike(data){
             let movieLike = this.movies.find(movie => movie.id == data.id);
-            movieLike.like = data.like
+            movieLike.like = data.like;
             console.log(movieLike.like);
+            this.showLike = data.like;
             //this.like = like;
             if (movieLike.like) {
                 console.log('Dentro del if para el alert');
-                this.$swal(`${movieLike.title}`, "Pelicula Agregada a Favoritos", "success")
-                //alert(`${movieLike.title} agregada a favoritos`)
-            }
+                this.$swal(`${movieLike.title}`, "Pelicula Agregada a Favoritos", "success");
+                //alert(`${movieLike.title} agregada a favoritos`);
+            };
+            setTimeout(()=>{
+                this.showLike = false;
+            },2000);
         }
     },
 })
