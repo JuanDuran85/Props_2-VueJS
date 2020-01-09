@@ -1,10 +1,18 @@
 let MovieFav = {
     template: `
-        <div class="movieFav-wrapper">
+        <div v-show="show" class="movieFav-wrapper">
             <div :id="'Fav-'+_uid" class="movieFav">
             </div>
         </div>
     `,
+    props: {
+        show: {
+            type: Boolean,
+            default(){
+                return false
+            }
+        }
+    },
     beforeCreate() {
         console.log('Antes de crear');
     },
@@ -19,7 +27,8 @@ let MovieFav = {
         let elemento = document.getElementById(`Fav-${this._uid}`);
         console.log(elemento);
         elemento.addEventListener('animationend',()=>{
-            this.$emit('hideFav', false);
+            //this.$emit('hideFav', false);
+            this.$emit('update:show',false);
         });
     },
     beforeUpdate() {

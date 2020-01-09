@@ -65,6 +65,7 @@ let MovieComp = {
             };
             console.log(data);
             this.$emit('toggleLike', data);
+            this.$emit('update:show',false);
 
         }
     },

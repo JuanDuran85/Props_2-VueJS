@@ -7,6 +7,9 @@
 
     para trabajar con sync desde el padre al hijo, se debe agregar:
     :like.sync="movie.like"
+
+    para ocultar automaticamente la animacion, se debe implementar en el componente hijo:
+    v-if="showLike" @hideFav="onHideFav"
 */
 
 Vue.component('props-comp', {
@@ -24,7 +27,7 @@ Vue.component('props-comp', {
                 :like="movie.like"
                 @toggleLike="onToggleLike"
             />
-            <MovieFav v-if="showLike" @hideFav="onHideFav"/>
+            <MovieFav :show.sync="showLike"/>
         </div>
     `,
     data() {
