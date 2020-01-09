@@ -24,7 +24,7 @@ Vue.component('props-comp', {
                 :like="movie.like"
                 @toggleLike="onToggleLike"
             />
-            <MovieFav v-if="showLike"/>
+            <MovieFav v-if="showLike" @hideFav="onHideFav"/>
         </div>
     `,
     data() {
@@ -73,6 +73,9 @@ Vue.component('props-comp', {
             setTimeout(()=>{
                 this.showLike = false;
             },2000);
+        },
+        onHideFav(show){
+            this.showLike = show;
         }
     },
 })
