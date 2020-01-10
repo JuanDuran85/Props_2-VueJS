@@ -10,6 +10,12 @@
     se puede lograr de la siguiente manera:  this.$parent.showLike = true;
 
     los filtos se utilizan para formatear texto. utilizando el sibmbolo |
+
+    los watch son un objeto que reciben funciones, las funciones deben ser el mismo nombre
+    de la dat o los props que queremos ver el cambio
+
+    sirven para ver el cambio de valor de los props o comparar los valores y hacer ciertas acciones
+    o metodos o para hacer llamados asincronos cuando el valor de una propiedad o data cambien
 */
 
 let MovieComp = {
@@ -113,6 +119,11 @@ let MovieComp = {
         },
         reducirText(parametro){
             return parametro.substr(0,39)+'...';
+        }
+    },
+    watch: {
+        like(newValue, oldValue){
+            console.log(`nuevo: ${newValue}, viejo: ${oldValue}`);
         }
     }
 }

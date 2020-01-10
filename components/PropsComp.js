@@ -11,12 +11,19 @@
     para ocultar automaticamente la animacion, se debe implementar en el componente hijo:
     v-if="showLike" @hideFav="onHideFav"
 
-    La referencia debe ser unica, como un ID
+    La referencia debe ser unica, como un ID.
+
+    <input v-model="usuario"/> ==> v-model hace al cambio directamente cada vez 
+    que utilizamos el valor del input, sin hacer el cambio total. Por lo tanto se usa
+    <input :value="usuario" @change="setNuevoUsaurio"/>
+
+    El wacth no lee el valor de los key. El wacth es un objeto. Tambien consumen muchos recursos
 */
 
 Vue.component('props-comp', {
     template: `
         <div class="container">
+        <h5>Bienvenido {{usuario}}</h5>
             <div class="row">
                 <div class="col-12 col-sm-6 col-md-6 col-lg-4" v-for="(movie,index) in movies" 
                 :key="index">
@@ -32,6 +39,14 @@ Vue.component('props-comp', {
                     />
                 </div>
             </div>
+            <br>
+            <label>Cambiar nombre:
+                <input :value="usuario" @change="setNuevoUsaurio"/>
+                <br>
+                <input :value="nombreApellido.nombre" @change="NuevoUsaurioNombre"/>
+                <input :value="nombreApellido.apellido" @change="NuevoUsaurioApellido"/>
+            </label>
+            {{vijeoUsuario}}
             <MovieFav ref="MovieFav" :show.sync="showLike"/>
         </div>
     `,
@@ -59,7 +74,13 @@ Vue.component('props-comp', {
                     like: false
                 }
             ],
-            showLike: false
+            showLike: false,
+            usuario: 'Juan Duran',
+            vijeoUsuario: null,
+            nombreApellido: {
+                nombre: 'Juan',
+                apellido: 'Duran'
+            }
         }
     },
     components: {
@@ -88,11 +109,45 @@ Vue.component('props-comp', {
         },
         sayHello(){
             console.log('-------mensaje desde metodo en el padre-----');
+        },
+        setNuevoUsaurio(event){
+            this.usuario = event.target.value;
+        },
+        NuevoUsaurioNombre(event){
+            this.nombreApellido.nombre = event.target.value;
+        },
+        NuevoUsaurioApellido(event){
+            this.nombreApellido.apellido = event.target.value;
         }
+
     },
     mounted() {
         console.log(this.$refs.MovieFav.mensaje);
         this.$refs.MovieFav.mensaje = '/////// Hola desde el padre ////////';
         this.$refs.MovieFav.showMensaje();
+    },
+    watch: {
+        usuario(nValor, vValor){
+            console.log(`Nuevo: ${nValor}, Viejo: ${vValor}`);
+            this.vijeoUsuario = vValor;
+        },
+        nombreApellido: {
+            handler: function (nValor, vValor) {
+                console.log('Nuevo: ', nValor, 'Viejo: ',vValor);
+            },
+            deep: true //profundidad del objeto
+        },
+        'nombreApellido.nombre': {
+            handler: function (nValor, vValor) {
+                console.log('Nuevo: ', nValor, 'Viejo: ',vValor);
+            },
+            deep: true //profundidad del objeto
+        },
+        'nombreApellido.apellido': {
+            handler: function (nValor, vValor) {
+                console.log('Nuevo: ', nValor, 'Viejo: ',vValor);
+            },
+            deep: true //profundidad del objeto
+        }
     },
 })
