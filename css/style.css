@@ -1,3 +1,18 @@
+.btn-like {
+    border-color: deeppink;
+    color: deeppink;
+}
+
+.btn-like:hover {
+    background-color: rgba(200, 100, 183, 0.5);
+}
+
+.movie-like {
+    -webkit-box-shadow: 0 0 0 7px rgba(214,167,214,0.87);
+    -moz-box-shadow: 0 0 0 7px rgba(214,167,214,0.87);
+    box-shadow: 0 0 0 7px rgba(214,167,214,0.87);
+}
+
 .movieFav-wrapper{
     background: rgba(255, 255, 255, 0.8);
     position: fixed;
@@ -9,6 +24,7 @@
     left: 0;
     top: 0;
 }
+
 .movieFav {
     position: relative;
     width: 100px;
@@ -16,6 +32,7 @@
     animation: heartbeat 3s forwards;
     margin:0 auto;
 }
+
 .movieFav:before,
 .movieFav:after {
     position: absolute;
@@ -38,6 +55,7 @@
         -o-transform-origin: 0 100%;
             transform-origin: 0 100%;
 }
+
 .movieFav:after {
     left: 0;
     -webkit-transform: rotate(45deg);
@@ -51,6 +69,7 @@
         -o-transform-origin: 100% 100%;
             transform-origin :100% 100%;
 }
+
 @keyframes heartbeat
 {
     0%

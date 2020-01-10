@@ -12,15 +12,24 @@
 
 let MovieComp = {
     template: `
-        <div>
-            <img :src="cover"/>
-            <h2 v-text="title"></h2>
-            <p v-text="synopsis"></p>
-            <button 
-                @click="toggleLike" 
-                v-text="like ? 'Favorito' : 'Agregar a Favoritos'">
-            </button>
-            <hr>
+        <div class="card" :class="{'movie-like': like}">
+            <img :src="cover" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" v-text="title"></h5>
+                <p class="card-text" v-text="synopsis" 
+                    :class="{
+                        'text-center' : like,
+                        'text-justify': !like
+                    }">
+                </p>
+                <button 
+                    @click="toggleLike"
+                    class="btn"
+                    :class="btnStatus">
+                    <span v-text="like ? 'Favorito' : 'Agregar a Favoritos'" ></span>
+                    <i class="fas" :class="corazonLike"></i>
+                </button>
+            </div>
         </div>
     `,
     data() {
@@ -78,6 +87,14 @@ let MovieComp = {
             }
             this.$emit('toggleLike', data);
             this.$emit('update:show',false);
+        }
+    },
+    computed: {
+        btnStatus(){
+            return this.like ? 'btn-like' : 'btn-outline-primary'
+        },
+        corazonLike(){
+            return this.like ? 'fa-heart' : 'fa-heart-broken'
         }
     },
 }

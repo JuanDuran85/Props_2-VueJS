@@ -16,20 +16,22 @@
 
 Vue.component('props-comp', {
     template: `
-        <div>
-            <h1>Peliculas Props</h1>
-            <MovieComp
-                :ref="'movie-'+movie.id"
-                v-for="(movie,index) in movies" 
-                :key="index" 
-                :id="movie.id"
-                :title="movie.title"
-                :synopsis="movie.synopsis"
-                :cover="movie.cover"
-                message="Mensaje desde el componente padre"
-                :like="movie.like"
-                @toggleLike="onToggleLike"
-            />
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-4" v-for="(movie,index) in movies" 
+                :key="index">
+                    <MovieComp
+                        :ref="'movie-'+movie.id"
+                        :id="movie.id"
+                        :title="movie.title"
+                        :synopsis="movie.synopsis"
+                        :cover="movie.cover"
+                        message="Mensaje desde el componente padre"
+                        :like="movie.like"
+                        @toggleLike="onToggleLike"
+                    />
+                </div>
+            </div>
             <MovieFav ref="MovieFav" :show.sync="showLike"/>
         </div>
     `,
