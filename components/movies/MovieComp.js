@@ -8,19 +8,22 @@
 
     Si se quiere modificar el dato del padre desde el hijo, con el elemento $parent
     se puede lograr de la siguiente manera:  this.$parent.showLike = true;
+
+    los filtos se utilizan para formatear texto. utilizando el sibmbolo |
 */
 
 let MovieComp = {
     template: `
-        <div class="card" :class="{'movie-like': like}">
+        <div :id="id | formatId" class="card" :class="{'movie-like': like}">
             <img :src="cover" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title" v-text="title"></h5>
-                <p class="card-text" v-text="synopsis" 
+                <h5 class="card-title">{{title | upperCase | agregarText}}</h5>
+                <p class="card-text" 
                     :class="{
                         'text-center' : like,
                         'text-justify': !like
                     }">
+                    {{synopsis | reducirText}}
                 </p>
                 <button 
                     @click="toggleLike"
@@ -97,4 +100,19 @@ let MovieComp = {
             return this.like ? 'fa-heart' : 'fa-heart-broken'
         }
     },
+    filters: {
+        formatId(parametro) {
+            return `movieCard-${parametro}`;
+        },
+        upperCase(parametro) {
+            return parametro.toUpperCase();
+        },
+        agregarText(parametro) {
+            let texto = "Pelicula: ";
+            return texto.concat(""+parametro);
+        },
+        reducirText(parametro){
+            return parametro.substr(0,39)+'...';
+        }
+    }
 }
