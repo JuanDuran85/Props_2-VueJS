@@ -5,6 +5,9 @@
 
     para trabajar con sync desde el padre, se debe agregar:
     @click="$emit('update:like', !like)" 
+
+    Si se quiere modificar el dato del padre desde el hijo, con el elemento $parent
+    se puede lograr de la siguiente manera:  this.$parent.showLike = true;
 */
 
 let MovieComp = {
@@ -63,10 +66,18 @@ let MovieComp = {
                 id: this.id,
                 like: !this.like
             };
+            console.log('Data: ');
             console.log(data);
+            if (!this.like) {
+                console.log(`parent movies: `);
+                console.log(this.$parent.movies);
+                this.$parent.showLike = true;
+                this.$parent.sayHello();
+                console.log(`parent showLike: `);
+                console.log(this.$parent.showLike);
+            }
             this.$emit('toggleLike', data);
             this.$emit('update:show',false);
-
         }
     },
 }

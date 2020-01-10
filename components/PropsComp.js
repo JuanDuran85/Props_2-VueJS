@@ -10,13 +10,16 @@
 
     para ocultar automaticamente la animacion, se debe implementar en el componente hijo:
     v-if="showLike" @hideFav="onHideFav"
+
+    La referencia debe ser unica, como un ID
 */
 
 Vue.component('props-comp', {
     template: `
         <div>
             <h1>Peliculas Props</h1>
-            <MovieComp 
+            <MovieComp
+                :ref="'movie-'+movie.id"
                 v-for="(movie,index) in movies" 
                 :key="index" 
                 :id="movie.id"
@@ -27,7 +30,7 @@ Vue.component('props-comp', {
                 :like="movie.like"
                 @toggleLike="onToggleLike"
             />
-            <MovieFav :show.sync="showLike"/>
+            <MovieFav ref="MovieFav" :show.sync="showLike"/>
         </div>
     `,
     data() {
@@ -65,6 +68,7 @@ Vue.component('props-comp', {
         onToggleLike(data){
             let movieLike = this.movies.find(movie => movie.id == data.id);
             movieLike.like = data.like;
+            console.log('movieLike like');
             console.log(movieLike.like);
             this.showLike = data.like;
             //this.like = like;
@@ -79,6 +83,14 @@ Vue.component('props-comp', {
         },
         onHideFav(show){
             this.showLike = show;
+        },
+        sayHello(){
+            console.log('-------mensaje desde metodo en el padre-----');
         }
+    },
+    mounted() {
+        console.log(this.$refs.MovieFav.mensaje);
+        this.$refs.MovieFav.mensaje = '/////// Hola desde el padre ////////';
+        this.$refs.MovieFav.showMensaje();
     },
 })

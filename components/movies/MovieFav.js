@@ -13,6 +13,16 @@ let MovieFav = {
             }
         }
     },
+    methods: {
+        showMensaje(){
+            console.log(this.mensaje);
+        }
+    },
+    data() {
+        return {
+            mensaje: 'Mensaje desde Movie Fav...'
+        }
+    },
     beforeCreate() {
         console.log('Antes de crear');
     },
@@ -25,6 +35,7 @@ let MovieFav = {
     mounted() {
         console.log('montado y mostrado');
         let elemento = document.getElementById(`Fav-${this._uid}`);
+        console.log('Elemento: ');
         console.log(elemento);
         elemento.addEventListener('animationend',()=>{
             //this.$emit('hideFav', false);
